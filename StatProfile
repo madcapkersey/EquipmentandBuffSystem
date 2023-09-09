@@ -1,0 +1,43 @@
+public class StatProfile
+    {
+        PlayerEngine PE;
+        BuffIndex buffIndex;
+        
+        public List<BuffTemplate> buffs = new List<BuffTemplate>();
+        List<string> buffnames = new List<string>();
+
+        public CharacterStatistic Health = new CharacterStatistic();
+
+        public CharacterStatistic Stamina = new CharacterStatistic();
+        public CharacterStatistic Dexterity = new CharacterStatistic();
+        public CharacterStatistic Power = new CharacterStatistic();
+
+       public StatProfile(PlayerEngine PE)
+        {
+            this.PE = PE;
+            buffIndex = new BuffIndex(this);
+            CalculateStatValues();
+        }
+
+        public void CalculateStatValues()
+        {        
+            buffnames = PE.equipedEquipment.buffs;
+            
+            
+            foreach (string buffname in buffnames)
+            {
+                buffs.Add(buffIndex.Index[buffname]);
+            }
+            foreach (var item in buffs)
+            {
+                item.Application();
+            }
+            Debug.Log(buffs);
+
+            CalculateFirePower();
+            CalculateCrit();
+            CalculateHit();
+            CalculateDeflection();
+            CalculateChargeCap();
+        }
+     }
