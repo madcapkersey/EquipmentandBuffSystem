@@ -1,0 +1,13 @@
+using System.Collections.Generic;
+using System;
+public class PlayerEngine : MonoBehaviour
+    {   //Main Setup Script
+      public StatProfile stats;
+      public EquipedEquipment equipedEquipment;
+
+    void Awake()
+        {  
+         stats = new StatProfile(this);
+         equipedEquipment = GetComponent<EquipedEquipment>();
+        }
+    }
