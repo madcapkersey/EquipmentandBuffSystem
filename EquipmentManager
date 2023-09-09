@@ -1,0 +1,223 @@
+public class EquipedEquipment : MonoBehaviour
+    {
+        [SerializeField] EquippableItemScriptableO ChestArmor;
+        [SerializeField] EquippableItemScriptableO HeadArmor;
+        [SerializeField] EquippableItemScriptableO LegArmor;
+        [SerializeField] EquippableItemScriptableO ShoulderArmor;
+
+        [SerializeField] EquippableItemScriptableO HandWeapon;
+        [SerializeField] EquippableItemScriptableO SpecialWeapon;
+
+        public List<string> buffs = new List<string>();
+        public List<string> ChestBuffs = new List<string>();
+        public List<string> HeadBuffs = new List<string>();
+        public List<string> LegBuffs = new List<string>();
+        public List<string> ShoulderBuffs = new List<string>();
+
+        public List<string> HandWeaponBuffs = new List<string>();
+        public List<string> SpecialWeaponBuffs = new List<string>();
+
+
+        public int ChestStamina;
+        public int HeadStamina;
+        public int LegStamina;
+        public int ShoulderStamina;
+
+        public int ChestPower;
+        public int HeadPower;
+        public int LegPower;
+        public int ShoulderPower;
+
+        public int ChestDexterity;
+        public int HeadDexterity;
+        public int LegDexterity;
+        public int ShoulderDexterity;
+
+        public int ChestAccuracy;
+        public int HeadAccuracy;
+        public int LegAccuracy;
+        public int ShoulderAccuracy;
+
+
+        public int ChestLimit;
+        public int HeadLimit;
+        public int LegLimit;
+        public int ShoulderLimit;
+
+
+       public int Stamina = 0;
+       public int Power = 0;
+       public int Dexterity = 0;
+       public int Limit = 0;
+       public int Accuracy = 0;
+
+
+
+        bool HeadEstablished;
+
+        void Start()
+        {
+            Chestpiece();
+            Headpiece();
+            ShoulderPiece();
+            LegPiece();
+            
+
+        }
+        void FixedUpdate()
+        {
+            Headpiece();
+            Chestpiece();
+            LegPiece();
+            ShoulderPiece();
+            Stamina = HeadStamina + ChestStamina + LegStamina + ShoulderStamina;
+            Power = HeadPower + ChestPower + LegPower + ShoulderPower;
+            Dexterity = HeadDexterity + ChestDexterity + LegDexterity + ShoulderDexterity;
+            Accuracy = HeadAccuracy + ChestAccuracy + LegDexterity + ShoulderDexterity;
+            Limit = HeadLimit + ChestLimit + LegLimit + ShoulderLimit;
+           
+        }
+      
+        PlayerEngine PE;
+        
+        public EquipedEquipment(PlayerEngine PE)
+        {
+            this.PE = PE;
+        }
+
+        void Equip(EquippableItemScriptableO equipable)
+        {
+            switch (equipable.ArmorType)
+            {
+                case ArmorSlotTypes.HeadSlot:
+                    HeadArmor = equipable;
+                    break;
+                case ArmorSlotTypes.ChestSlot:
+                    ChestArmor = equipable;
+                    
+                    break;
+                case ArmorSlotTypes.LegSlot:
+                    LegArmor = equipable;
+                    break;
+                case ArmorSlotTypes.ShoulderSlot:
+                    ShoulderArmor = equipable;
+                    break;        
+            }
+        }
+        void Remove(EquippableItemScriptableO Equiped)
+        {
+
+        }
+
+        void Headpiece()
+        {
+
+            if (HeadArmor == null)
+            {
+                HeadBuffs.Clear();
+                HeadStamina = 0;
+                HeadPower = 0;
+                HeadDexterity = 0;
+                HeadAccuracy = 0;
+                
+                return;
+            }
+            if (HeadArmor.ArmorType != ArmorSlotTypes.HeadSlot)
+            {
+                HeadArmor = null;
+                return;
+            }
+
+            if (HeadArmor.ArmorType == ArmorSlotTypes.HeadSlot)
+            {
+               
+                HeadStamina = HeadArmor.Stamina;
+                HeadPower = HeadArmor.Power;
+                HeadDexterity = HeadArmor.Dexterity;
+                HeadAccuracy = HeadArmor.Accuracy;
+
+                
+                HeadBuffs = HeadArmor.AdvancedBuffsName.ToList();               
+
+            }    
+        }
+        void Chestpiece()
+        {
+            if(ChestArmor == null)
+            {
+                ChestStamina = 0;
+                ChestPower = 0;
+                ChestDexterity = 0;
+                ChestAccuracy = 0;
+                ChestBuffs.Clear();
+                return;
+            }
+            if (ChestArmor.ArmorType != ArmorSlotTypes.ChestSlot)
+            {
+                ChestArmor = null;
+            }
+            if (ChestArmor.ArmorType == ArmorSlotTypes.ChestSlot)
+            {
+                ChestStamina = ChestArmor.Stamina;
+                ChestPower = ChestArmor.Power;
+                ChestDexterity = ChestArmor.Dexterity;
+                ChestLimit = ChestArmor.Limit;
+                ChestAccuracy = ChestArmor.Accuracy;
+
+                ChestBuffs = ChestArmor.AdvancedBuffsName.ToList();
+            }
+        }
+        void LegPiece()
+        {
+            if (LegArmor == null)
+            {
+                LegStamina = 0;
+                LegPower = 0;
+                LegDexterity = 0;
+                LegAccuracy = 0;
+                LegBuffs.Clear();
+                
+                return;
+            }
+            if (LegArmor.ArmorType != ArmorSlotTypes.LegSlot)
+            {
+                ChestArmor = null;
+            }
+            if (LegArmor.ArmorType == ArmorSlotTypes.LegSlot)
+            {
+                LegStamina = ChestArmor.Stamina;
+                LegPower = ChestArmor.Power;
+                LegDexterity = ChestArmor.Dexterity;
+                LegLimit = ChestArmor.Limit;
+                LegAccuracy = ChestArmor.Accuracy;
+                
+                LegBuffs = ChestArmor.AdvancedBuffsName.ToList();
+            }
+        }
+        void ShoulderPiece()
+        {
+            if (ShoulderArmor == null)
+            {
+                ShoulderStamina = 0;
+                ShoulderPower = 0;
+                ShoulderDexterity = 0;
+                ShoulderAccuracy = 0;
+                ShoulderBuffs.Clear();
+                return;
+            }
+            if (ShoulderArmor.ArmorType != ArmorSlotTypes.ShoulderSlot)
+            {
+                ChestArmor = null;
+            }
+            if (ShoulderArmor.ArmorType == ArmorSlotTypes.ShoulderSlot)
+            {
+                ShoulderStamina = ChestArmor.Stamina;
+                ShoulderPower = ChestArmor.Power;
+                ShoulderDexterity = ChestArmor.Dexterity;
+                ShoulderLimit = ChestArmor.Limit;
+                ShoulderAccuracy = ChestArmor.Accuracy;
+
+                ShoulderBuffs = ChestArmor.AdvancedBuffsName.ToList();
+            }
+        }
+    }
