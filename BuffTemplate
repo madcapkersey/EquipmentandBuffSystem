@@ -1,0 +1,20 @@
+public enum ModifierType
+    {
+        Flat, Percent
+    }
+    public abstract class BuffTemplate
+    {    
+        ModifierType modType;
+
+        StatProfile SP;
+        public BuffTemplate(StatProfile SP, ModifierType modType)
+        {
+            this.SP = SP;
+            this.modType = modType;
+        }
+       
+        public abstract void Application();
+
+        public abstract void Removal();
+
+    }
