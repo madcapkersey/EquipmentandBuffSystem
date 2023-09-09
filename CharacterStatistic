@@ -1,0 +1,8 @@
+public class CharacterStatistic
+    {   
+        public float baseValue;
+
+        public static CharacterStatistic operator + (CharacterStatistic a, CharacterStatistic b)
+        {
+            return new CharacterStatistic{baseValue = a.baseValue + b.baseValue};
+        }
