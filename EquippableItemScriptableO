@@ -1,0 +1,19 @@
+class EquippableItemScriptableO : ScriptableObject
+    {
+        [SerializeField] public string ItemName;
+        [SerializeField] public Sprite ItenIcon;
+        [SerializeField] public GameObject ItemGraphics;
+        [SerializeField] public ArmorSlotTypes ArmorType;
+        [SerializeField] public int Stamina;
+        [SerializeField] public int Dexterity;
+        [SerializeField] public int Power;
+        [SerializeField] public int Limit;
+        [SerializeField] public int Accuracy;
+        [SerializeField] public List <string> Buffs = new List<string>();
+        public IReadOnlyList <string> AdvancedBuffsName 
+        { get
+            {
+                return Buffs;
+            } 
+        }
+    }
