@@ -1,0 +1,19 @@
+class BuffIndex
+    {
+        public Dictionary<string, BuffTemplate> Index;
+        StatProfile player;
+       public IReadOnlyDictionary<string, BuffTemplate> readonlyIndex;
+        StatProfile SP;
+      
+        public BuffIndex(StatProfile SP)
+        {
+            this.SP = SP;
+            Index = new Dictionary<string, BuffTemplate>()
+            {
+                {"MI", new MachineInspirationBuff(SP,ModifierType.Flat) }
+            };
+            readonlyIndex = Index;
+        }
+
+
+    }
